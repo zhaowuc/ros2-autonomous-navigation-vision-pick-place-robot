@@ -1,0 +1,12 @@
+[Unit]
+Description=ROSCAR USB camera transfer buffer
+Before=roscar-navigation.service
+ConditionPathExists=/sys/module/usbcore/parameters/usbfs_memory_mb
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'echo 128 > /sys/module/usbcore/parameters/usbfs_memory_mb'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,22 @@
+<root main_tree_to_execute="MainTree">
+  <BehaviorTree ID="MainTree">
+    <RecoveryNode number_of_retries="2" name="LimitedNavigationRecovery">
+      <PipelineSequence name="NavigateWithStableReplanning">
+        <ControllerSelector selected_controller="{selected_controller}"
+                            default_controller="FollowPathCruise"
+                            topic_name="controller_selector"/>
+        <RateController hz="0.2">
+          <ComputePathToPose goal="{goal}" path="{path}" planner_id="GridBased"/>
+        </RateController>
+        <FollowPath path="{path}"
+                    controller_id="{selected_controller}"
+                    goal_checker_id="goal_checker"/>
+      </PipelineSequence>
+      <Sequence name="StopWaitClearAndRetry">
+        <Wait wait_duration="1.5"/>
+        <ClearEntireCostmap name="ClearLocalCostmap"
+                            service_name="local_costmap/clear_entirely_local_costmap"/>
+      </Sequence>
+    </RecoveryNode>
+  </BehaviorTree>
+</root>

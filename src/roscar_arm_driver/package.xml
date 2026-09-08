@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>roscar_arm_driver</name>
+  <version>0.1.0</version>
+  <description>ROS 2 serial driver for the Zhongling 24-channel servo board.</description>
+  <maintainer email="car1@example.com">car1</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <exec_depend>python3-serial</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<robot name="roscar_sim" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find roscar_description)/urdf/roscar_dofbot_temp.urdf.xacro"/>
+
+  <!-- The demo base is commanded through SetEntityState, not wheel forces.
+       Keep Gazebo physics from displacing or tipping it between 50 Hz pose
+       updates; obstacle safety is still exercised by real laser/costmap data
+       and independently checked model geometry. -->
+  <gazebo>
+    <static>true</static>
+  </gazebo>
+
+  <gazebo reference="base_link">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+
+  <gazebo reference="laser_link">
+    <sensor name="roscar_laser" type="ray">
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>15</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.14159265</min_angle>
+            <max_angle>3.14159265</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.12</min>
+          <max>8.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.005</stddev>
+        </noise>
+      </ray>
+      <plugin name="roscar_laser_plugin" filename="libgazebo_ros_ray_sensor.so">
+        <ros><remapping>~/out:=/scan_raw</remapping></ros>
+        <output_type>sensor_msgs/LaserScan</output_type>
+        <frame_name>laser_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Entity motion is driven by sim_base_controller.py.  The stock planar
+       plugin allowed the tall manipulator to torque the chassis out of the
+       2-D plane, so it is deliberately not loaded. -->
+  <gazebo reference="link1"><gravity>false</gravity></gazebo>
+  <gazebo reference="link2"><gravity>false</gravity></gazebo>
+  <gazebo reference="link3"><gravity>false</gravity></gazebo>
+  <gazebo reference="link4"><gravity>false</gravity></gazebo>
+  <gazebo reference="link5"><gravity>false</gravity></gazebo>
+</robot>

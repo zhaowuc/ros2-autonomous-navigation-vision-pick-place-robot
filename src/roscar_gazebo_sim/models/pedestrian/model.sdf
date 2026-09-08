@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="pedestrian">
+    <static>false</static>
+    <link name="body">
+      <gravity>false</gravity>
+      <collision name="collision"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry></collision>
+      <visual name="visual"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry><material><ambient>0.8 0.2 0.1 1</ambient><diffuse>0.8 0.2 0.1 1</diffuse></material></visual>
+    </link>
+  </model>
+</sdf>

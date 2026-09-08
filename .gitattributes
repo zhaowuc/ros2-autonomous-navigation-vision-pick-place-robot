@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.pgm binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.world text eol=lf

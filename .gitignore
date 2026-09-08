@@ -1,0 +1,34 @@
+build/
+install/
+log/
+Log/
+.codex_backups/
+.codex_upload/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.bak*
+*.log
+*.pid
+
+# Runtime and site-specific data
+.ros/
+roscar_maps/
+maps/private/
+*.bag
+*.db3
+*.mcap
+calibration_points.*
+arm_actions.yaml
+*.reload_pose.json
+
+# Credentials and local environment
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*
+secrets*

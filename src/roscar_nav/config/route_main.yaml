@@ -1,0 +1,4 @@
+points_file: ~/.ros/roscar_data/calibration_points.yaml
+route: []
+pause_seconds: 3.0
+frame_id: map

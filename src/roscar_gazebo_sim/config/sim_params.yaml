@@ -1,0 +1,12 @@
+speed_profiles:
+  low: 0.06
+  normal: 0.10
+  fast: 0.20
+terminal_distance: 0.40
+replan_hz: 1.0
+goal_tolerance:
+  xy: 0.03
+  yaw: 0.05
+collision_zones:
+  stop_margin: 0.10
+  slow_margin: 0.25

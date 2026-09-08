@@ -1,0 +1,45 @@
+ekf_filter_node:
+  ros__parameters:
+    # Formal N300Pro fused-odometry chain. Launch starts this node only when
+    # use_fused_odom=true, making EKF the sole odom TF authority.
+    frequency: 50.0
+    sensor_timeout: 0.2
+    two_d_mode: true
+
+    publish_tf: true
+    publish_acceleration: false
+    print_diagnostics: true
+
+    map_frame: map
+    odom_frame: odom
+    base_link_frame: base_footprint
+    world_frame: odom
+
+    # Use only wheel-derived velocities; do not re-fuse the integrated wheel pose.
+    odom0: /wheel/odom_raw
+    odom0_config: [
+      false, false, false,
+      false, false, false,
+      true,  true,  false,
+      false, false, true,
+      false, false, false
+    ]
+    odom0_differential: false
+    odom0_relative: false
+    odom0_queue_size: 20
+
+    # Phase one uses only the N300Pro Z gyroscope. Orientation and acceleration
+    # remain monitoring-only until their calibration is validated separately.
+    imu0: /imu/n300/data
+    imu0_config: [
+      false, false, false,
+      false, false, false,
+      false, false, false,
+      false, false, true,
+      false, false, false
+    ]
+    imu0_differential: false
+    imu0_relative: false
+    imu0_queue_size: 50
+    imu0_nodelay: true
+    imu0_remove_gravitational_acceleration: false

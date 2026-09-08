@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>c50c_mock_mcu</name>
+  <version>1.0.0</version>
+  <description>Byte-accurate pseudo-terminal C50C STM32 protocol simulator and fault injector.</description>
+  <maintainer email="user@example.com">roscar</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <exec_depend>python3-serial</exec_depend>
+
+  <test_depend>python3-pytest</test_depend>
+  <test_depend>roscar_base_interface</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

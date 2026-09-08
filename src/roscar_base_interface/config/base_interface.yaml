@@ -1,0 +1,37 @@
+roscar_base_interface:
+  ros__parameters:
+    # The default is intentionally non-hardware.  Selecting serial is an
+    # explicit launch-time act and is the only path that can open a device.
+    base_backend: sim
+
+    serial_device: /dev/c50c_ros
+    baudrate: 115200
+    command_tx_rate: 50.0
+    command_timeout: 0.15
+    feedback_expected_rate: 50.0
+    feedback_timeout: 0.15
+    reconnect_interval: 1.0
+
+    # Absolute production translation ceiling is 0.20 m/s.  Rotation retains
+    # the accepted safety-chain ceiling of 0.45 rad/s.
+    max_vx: 0.20
+    max_vy: 0.20
+    max_wz: 0.45
+
+    # Match the production C50C V14 firmware calibration used by the R16
+    # loaded-ground check: effective circumference 0.312574189066 m and
+    # mecanum lever arm K=(wheel_spacing+axle_spacing)/2=0.464860 m.
+    wheel_radius: 0.050
+    wheel_spacing: 0.519720
+    axle_spacing: 0.410
+    encoder_ticks_per_revolution: 4096
+    odom_frame_id: odom
+    base_frame_id: base_footprint
+
+    sim_command_topic: /sim/cmd_vel
+    # Simulated encoder/speed feedback is derived only from the bounded
+    # kinematic actuator command. /sim/ground_truth is benchmark-only and is
+    # deliberately not consumed by this production interface.
+    sim_battery_mv: 24000
+    diagnostic_rate: 2.0
+    ack_warn_lag: 5

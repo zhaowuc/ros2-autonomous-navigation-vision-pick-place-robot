@@ -1,0 +1,110 @@
+velocity_smoother:
+  ros__parameters:
+    use_sim_time: false
+    smoothing_frequency: 50.0
+    scale_velocities: true
+    feedback: OPEN_LOOP
+    max_velocity: [0.20, 0.06, 0.45]
+    min_velocity: [-0.20, -0.06, -0.45]
+    max_accel: [0.30, 0.20, 0.80]
+    max_decel: [-0.45, -0.30, -1.00]
+    odom_topic: /wheel/odom_raw
+    odom_duration: 0.1
+    deadband_velocity: [0.0, 0.0, 0.0]
+    velocity_timeout: 0.25
+
+collision_monitor:
+  ros__parameters:
+    use_sim_time: false
+    base_frame_id: base_footprint
+    odom_frame_id: odom
+    cmd_vel_in_topic: /cmd_vel_smoothed
+    cmd_vel_out_topic: /cmd_vel_safe
+    transform_tolerance: 0.2
+    source_timeout: 0.5
+    base_shift_correction: false
+    stop_pub_timeout: 15.0
+    # Manual mapping must preserve the operator-selected translation speed.
+    # Keep the four hard-stop zones, while Nav2 retains its independent
+    # slowdown zones in roscar_nav/config/nav2_params_roscar.yaml.
+    polygons: ['StopFront']
+    StopFront:
+      type: polygon
+      points: [0.450, 0.450, 0.450, -0.450, 0.295, -0.450, 0.295, 0.450]
+      action_type: stop
+      max_points: 3
+      visualize: true
+      polygon_pub_topic: collision_monitor/stop_front
+      enabled: true
+    StopRear:
+      type: polygon
+      points: [-0.295, 0.400, -0.295, -0.400, -0.400, -0.400, -0.400, 0.400]
+      action_type: stop
+      max_points: 3
+      visualize: true
+      polygon_pub_topic: collision_monitor/stop_rear
+      enabled: true
+    StopLeft:
+      type: polygon
+      points: [0.450, 0.400, 0.450, 0.290, -0.450, 0.290, -0.450, 0.400]
+      action_type: stop
+      max_points: 3
+      visualize: true
+      polygon_pub_topic: collision_monitor/stop_left
+      enabled: true
+    StopRight:
+      type: polygon
+      points: [0.450, -0.290, 0.450, -0.400, -0.450, -0.400, -0.450, -0.290]
+      action_type: stop
+      max_points: 3
+      visualize: true
+      polygon_pub_topic: collision_monitor/stop_right
+      enabled: true
+    SlowFront:
+      type: polygon
+      points: [0.650, 0.650, 0.650, -0.650, 0.450, -0.650, 0.450, 0.650]
+      action_type: slowdown
+      max_points: 3
+      slowdown_ratio: 0.50
+      visualize: true
+      polygon_pub_topic: collision_monitor/slow_front
+      enabled: true
+    SlowRear:
+      type: polygon
+      points: [-0.400, 0.650, -0.400, -0.650, -0.650, -0.650, -0.650, 0.650]
+      action_type: slowdown
+      max_points: 3
+      slowdown_ratio: 0.50
+      visualize: true
+      polygon_pub_topic: collision_monitor/slow_rear
+      enabled: true
+    SlowLeft:
+      type: polygon
+      points: [0.650, 0.650, 0.650, 0.400, -0.650, 0.400, -0.650, 0.650]
+      action_type: slowdown
+      max_points: 3
+      slowdown_ratio: 0.50
+      visualize: true
+      polygon_pub_topic: collision_monitor/slow_left
+      enabled: true
+    SlowRight:
+      type: polygon
+      points: [0.650, -0.400, 0.650, -0.650, -0.650, -0.650, -0.650, -0.400]
+      action_type: slowdown
+      max_points: 3
+      slowdown_ratio: 0.50
+      visualize: true
+      polygon_pub_topic: collision_monitor/slow_right
+      enabled: true
+    observation_sources: ['scan', 'astra']
+    scan:
+      type: scan
+      topic: /scan_slam_filtered
+      enabled: true
+    astra:
+      type: pointcloud
+      topic: /astra/depth/points_obstacles
+      min_height: 0.05
+      max_height: 1.50
+      min_range: 0.55
+      enabled: true

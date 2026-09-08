@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="corridor_demo">
+    <physics type="ode"><real_time_update_rate>1000</real_time_update_rate><max_step_size>0.001</max_step_size></physics>
+    <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
+      <ros><namespace>/</namespace></ros>
+      <update_rate>50.0</update_rate>
+    </plugin>
+    <!-- Keep the demo fully offline: no model://sun or model://ground_plane
+         lookup is allowed to block world loading on the Gazebo model CDN. -->
+    <light name="sun" type="directional">
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>-0.5 0.1 -0.9</direction>
+      <cast_shadows>true</cast_shadows>
+    </light>
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="ground">
+        <collision name="collision">
+          <geometry><plane><normal>0 0 1</normal><size>20 20</size></plane></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><plane><normal>0 0 1</normal><size>20 20</size></plane></geometry>
+          <material><ambient>0.45 0.45 0.45 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_west"><static>true</static><pose>-4.05 0 1 0 0 0</pose><link name="wall"><collision name="c"><geometry><box><size>0.10 8.20 2.0</size></box></geometry></collision><visual name="v"><geometry><box><size>0.10 8.20 2.0</size></box></geometry><material><ambient>0.85 0.85 0.88 1</ambient></material></visual></link></model>
+    <model name="wall_east"><static>true</static><pose>4.05 0 1 0 0 0</pose><link name="wall"><collision name="c"><geometry><box><size>0.10 8.20 2.0</size></box></geometry></collision><visual name="v"><geometry><box><size>0.10 8.20 2.0</size></box></geometry><material><ambient>0.85 0.85 0.88 1</ambient></material></visual></link></model>
+    <model name="wall_south"><static>true</static><pose>0 -4.05 1 0 0 0</pose><link name="wall"><collision name="c"><geometry><box><size>8.20 0.10 2.0</size></box></geometry></collision><visual name="v"><geometry><box><size>8.20 0.10 2.0</size></box></geometry><material><ambient>0.85 0.85 0.88 1</ambient></material></visual></link></model>
+    <model name="wall_north"><static>true</static><pose>0 4.05 1 0 0 0</pose><link name="wall"><collision name="c"><geometry><box><size>8.20 0.10 2.0</size></box></geometry></collision><visual name="v"><geometry><box><size>8.20 0.10 2.0</size></box></geometry><material><ambient>0.85 0.85 0.88 1</ambient></material></visual></link></model>
+    <model name="wall_corner_horizontal"><static>true</static><pose>-1.50 0 1 0 0 0</pose><link name="wall"><collision name="c"><geometry><box><size>5.00 0.12 2.0</size></box></geometry></collision><visual name="v"><geometry><box><size>5.00 0.12 2.0</size></box></geometry><material><ambient>0.70 0.82 0.90 1</ambient></material></visual></link></model>
+    <model name="wall_corner_vertical"><static>true</static><pose>1.0 1.0 1 0 0 0</pose><link name="wall"><collision name="c"><geometry><box><size>0.12 2.00 2.0</size></box></geometry></collision><visual name="v"><geometry><box><size>0.12 2.00 2.0</size></box></geometry><material><ambient>0.70 0.82 0.90 1</ambient></material></visual></link></model>
+
+    <include><uri>model://pedestrian</uri><name>pedestrian</name><pose>0 -3.5 0.85 0 0 0</pose></include>
+    <!-- A-to-B runs along x through the lower corridor (-4 < y < 0).
+         The blocker is thin in x and spans the corridor in y so it cannot be
+         bypassed; it is parked outside the world until a benchmark enables it. -->
+    <model name="route_blocker"><static>false</static><pose>0 -6 0.6 0 0 0</pose><link name="body"><gravity>false</gravity><collision name="c"><geometry><box><size>0.25 3.70 1.2</size></box></geometry></collision><visual name="v"><geometry><box><size>0.25 3.70 1.2</size></box></geometry><material><ambient>0.9 0.65 0.1 1</ambient></material></visual></link></model>
+  </world>
+</sdf>
