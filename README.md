@@ -1,4 +1,11 @@
-# ROSCAR Mobile Manipulator — ROS 2 Humble
+# 基于 ROS 2 的自主导航与视觉取放移动机器人
+
+<p align="center">
+  <a href="https://github.com/zhaowuc/ros2-autonomous-navigation-vision-pick-place-robot/releases/download/demo-video-v1/roscar-demo.mp4">
+    <img src="docs/media/gui-overview.jpg" alt="ROSCAR 演示视频" width="900">
+  </a>
+</p>
+<p align="center"><strong>▶ 点击上图播放完整演示视频</strong></p>
 
 [![ROS 2](https://img.shields.io/badge/ROS%202-Humble-22314E)](https://docs.ros.org/en/humble/)
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-22.04-E95420)](https://releases.ubuntu.com/22.04/)
@@ -6,7 +13,11 @@
 
 面向室内配送场景的四轮麦克纳姆智能车工程。系统将激光建图与定位、深度避障、两阶段导航、机械臂动作组、视觉对齐和原生操作界面整合在一个 ROS 2 工作空间中。
 
-> 演示视频：即将添加。
+## GUI 界面
+
+<p align="center">
+  <img src="docs/media/gui-arm-actions.png" alt="机械臂动作组编辑界面" width="700">
+</p>
 
 ## 功能
 
